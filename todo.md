@@ -8,6 +8,8 @@
  - [ ] join handler
  - [ ] login handler
 - [ ] Consider the player entity.
+- [ ] Consider to not serve index.html file
+- [ ] Consider implementing handler to check session and redirect to /.
 
 # Done
 
