@@ -1,6 +1,5 @@
 # Todo
 
-- [ ] Make start game page.
 - [ ] Make index page with board (html file).
 - [ ] Create routes.
 - [ ] Create handlers
@@ -13,5 +12,6 @@
 
 # Done
 
-- [x] Make the game entity.
+- [x] Make start game page.
 - [x] Make login page.
+- [x] Make the game entity.
