@@ -6,8 +6,21 @@ const loginPage = (serveFrom) => (req, res) => {
   res.sendFile('login.html', { root: serveFrom });
 };
 
-// const loginHandler = (sessions) => (req, res) => {
+const createSession = (username) => {
+  const time = new Date();
+  return { username, time, sessionId: time.getTime() };
+};
 
-// };
+const loginHandler = (sessions) => (req, res) => {
+  const { body } = req;
+  if (!body.name) {
+    res.status(400).end('Provide your name');
+    return;
+  }
 
-module.exports = { loginPage };
+  const session = createSession(body.name);
+  sessions[session.sessionId] = session;
+  res.cookie('sessionId', session.sessionId).redirect('/start-game');
+};
+
+module.exports = { loginPage, loginHandler };

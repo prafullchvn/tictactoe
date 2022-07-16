@@ -6,4 +6,12 @@ const indexPage = (serveFrom) => (req, res) => {
   res.sendFile('index.html', { root: serveFrom });
 };
 
-module.exports = { indexPage };
+const startGamePage = (serveFrom) => (req, res) => {
+  const { session } = req;
+  if (!session) {
+    return res.redirect('/login');
+  }
+  res.sendFile('start-game.html', { root: serveFrom });
+};
+
+module.exports = { indexPage, startGamePage };

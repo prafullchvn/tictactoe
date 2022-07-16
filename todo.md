@@ -6,10 +6,11 @@
  - [ ] get stat
  - [ ] host handler
  - [ ] join handler
- - [ ] login handler
+ - [x] login handler
 - [ ] Consider the player entity.
 - [ ] Consider to not serve index.html file
 - [ ] Consider implementing handler to check session and redirect to /.
+- [ ] Consider implementing handler to check session and redirect to /login.
 
 # Done
 
