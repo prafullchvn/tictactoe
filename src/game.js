@@ -34,9 +34,9 @@ class Game {
     this.#maxMoves = 9;
   }
 
-  addPlayer(id, name) {
+  addPlayer(name) {
     const symbol = this.#symbols[this.#players.length % this.#maxPlayers];
-    const player = { id, name, symbol, moves: [] };
+    const player = { name, symbol, moves: [] };
     this.#players.push(player);
     this.#updateCurrentPlayer();
   }

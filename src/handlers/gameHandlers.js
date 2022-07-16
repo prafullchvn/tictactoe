@@ -1,3 +1,5 @@
+const { Game } = require('../game.js');
+
 const indexPage = (serveFrom) => (req, res) => {
   const { session } = req;
   if (!session) {
@@ -14,4 +16,27 @@ const startGamePage = (serveFrom) => (req, res) => {
   res.sendFile('start-game.html', { root: serveFrom });
 };
 
-module.exports = { indexPage, startGamePage };
+const randomIntBetween = (start, end) => {
+  const diff = end - start;
+  const ranNum = Math.floor(Math.random() * diff);
+  return ranNum + start;
+};
+
+const createGameId = () => {
+  return Array(5).fill(0).map(() => {
+    const ranNum = randomIntBetween(65, 91);
+    return String.fromCharCode(ranNum);
+  }).join('');
+};
+
+const hostGame = (req, res) => {
+  const { session } = req;
+  const gameId = createGameId();
+  const game = new Game(gameId);
+
+  session.user[gameId] = game;
+  game.addPlayer(session.user.username);
+  res.json({ gameId });
+};
+
+module.exports = { indexPage, startGamePage, hostGame };

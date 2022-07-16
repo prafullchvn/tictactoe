@@ -8,7 +8,7 @@ const loginPage = (serveFrom) => (req, res) => {
 
 const createSession = (username) => {
   const time = new Date();
-  return { username, time, sessionId: time.getTime() };
+  return { user: { username }, time, sessionId: time.getTime() };
 };
 
 const loginHandler = (sessions) => (req, res) => {
