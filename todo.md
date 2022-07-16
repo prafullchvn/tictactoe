@@ -1,6 +1,5 @@
 # Todo
 
-- [ ] Write script for startGame for sending GET /host request.
 - [ ] Create routes.
 - [ ] Create handlers
  - [ ] register move
@@ -8,6 +7,7 @@
  - [x] host handler
  - [ ] join handler
  - [x] login handler
+- [ ] Consider extracting styles in css folder
 - [ ] Consider separating handlers in gameHandlers file
 - [ ] Consider the player entity.
 - [ ] Consider to not serve index.html file
@@ -16,6 +16,7 @@
 
 # Done
 
+- [x] Write script for startGame for sending GET /host request.
 - [x] Make index page with board (html file).
 - [x] Make start game page.
 - [x] Make login page.

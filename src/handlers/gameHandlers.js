@@ -8,12 +8,12 @@ const indexPage = (serveFrom) => (req, res) => {
   res.sendFile('index.html', { root: serveFrom });
 };
 
-const startGamePage = (serveFrom) => (req, res) => {
+const roomPage = (serveFrom) => (req, res) => {
   const { session } = req;
   if (!session) {
     return res.redirect('/login');
   }
-  res.sendFile('start-game.html', { root: serveFrom });
+  res.sendFile('room.html', { root: serveFrom });
 };
 
 const randomIntBetween = (start, end) => {
@@ -41,4 +41,4 @@ const hostGame = (games) => (req, res) => {
   res.json({ gameId });
 };
 
-module.exports = { indexPage, startGamePage, hostGame };
+module.exports = { indexPage, roomPage, hostGame };

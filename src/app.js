@@ -3,7 +3,7 @@ const { fileLogger } = require('./middleware/fileLogger.js');
 const { injectCookies } = require('./middleware/injectCookies.js');
 const { injectSession } = require('./middleware/injectSession.js');
 const { loginPage, loginHandler } = require('./handlers/authHandlers.js');
-const { indexPage, startGamePage, hostGame } = require('./handlers/gameHandlers.js');
+const { indexPage, roomPage, hostGame } = require('./handlers/gameHandlers.js');
 
 const createApp = (serveFrom, games = {}, sessions = {}) => {
   const app = express();
@@ -14,7 +14,7 @@ const createApp = (serveFrom, games = {}, sessions = {}) => {
 
   app.get('/', indexPage(serveFrom));
   app.get('/login', loginPage(serveFrom));
-  app.get('/start-game', startGamePage(serveFrom));
+  app.get('/room', roomPage(serveFrom));
   app.get('/host', hostGame(games));
 
   app.post('/login', loginHandler(sessions));

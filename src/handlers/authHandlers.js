@@ -20,7 +20,7 @@ const loginHandler = (sessions) => (req, res) => {
 
   const session = createSession(body.name);
   sessions[session.sessionId] = session;
-  res.cookie('sessionId', session.sessionId).redirect('/start-game');
+  res.cookie('sessionId', session.sessionId).redirect('/room');
 };
 
 module.exports = { loginPage, loginHandler };
