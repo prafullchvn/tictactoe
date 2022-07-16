@@ -2,7 +2,8 @@ const { Game } = require('../game.js');
 
 const indexPage = (serveFrom) => (req, res) => {
   const { session } = req;
-  if (!session) {
+
+  if (!session.isPopulated) {
     return res.redirect('/login');
   }
   res.sendFile('index.html', { root: serveFrom });
@@ -10,7 +11,7 @@ const indexPage = (serveFrom) => (req, res) => {
 
 const roomPage = (serveFrom) => (req, res) => {
   const { session } = req;
-  if (!session) {
+  if (!session.isPopulated) {
     return res.redirect('/login');
   }
   res.sendFile('room.html', { root: serveFrom });
@@ -35,9 +36,9 @@ const hostGame = (games) => (req, res) => {
   const game = new Game(gameId);
 
   games[gameId] = game;
-  session.user.gameId = gameId;
+  session.gameId = gameId;
 
-  game.addPlayer(session.user.username);
+  game.addPlayer(session.user);
   res.json({ gameId });
 };
 

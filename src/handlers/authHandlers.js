@@ -1,26 +1,20 @@
 const loginPage = (serveFrom) => (req, res) => {
   const { session } = req;
-  if (session) {
+  if (session.isPopulated) {
     return res.redirect('/');
   }
   res.sendFile('login.html', { root: serveFrom });
 };
 
-const createSession = (username) => {
-  const time = new Date();
-  return { user: { username }, time, sessionId: time.getTime() };
-};
+const loginHandler = (req, res) => {
+  const { body, session } = req;
 
-const loginHandler = (sessions) => (req, res) => {
-  const { body } = req;
   if (!body.name) {
     res.status(400).end('Provide your name');
     return;
   }
-
-  const session = createSession(body.name);
-  sessions[session.sessionId] = session;
-  res.cookie('sessionId', session.sessionId).redirect('/room');
+  session.user = body.name;
+  res.cookie('sessionId', new Date().getTime()).redirect('/room');
 };
 
 module.exports = { loginPage, loginHandler };
