@@ -29,12 +29,14 @@ const createGameId = () => {
   }).join('');
 };
 
-const hostGame = (req, res) => {
+const hostGame = (games) => (req, res) => {
   const { session } = req;
   const gameId = createGameId();
   const game = new Game(gameId);
 
-  session.user[gameId] = game;
+  games[gameId] = game;
+  session.user.gameId = gameId;
+
   game.addPlayer(session.user.username);
   res.json({ gameId });
 };

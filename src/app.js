@@ -5,7 +5,7 @@ const { injectSession } = require('./middleware/injectSession.js');
 const { loginPage, loginHandler } = require('./handlers/authHandlers.js');
 const { indexPage, startGamePage, hostGame } = require('./handlers/gameHandlers.js');
 
-const createApp = (serveFrom, sessions = {}) => {
+const createApp = (serveFrom, games = {}, sessions = {}) => {
   const app = express();
   app.use(express.urlencoded({ extended: true }));
   app.use(fileLogger);
@@ -15,7 +15,7 @@ const createApp = (serveFrom, sessions = {}) => {
   app.get('/', indexPage(serveFrom));
   app.get('/login', loginPage(serveFrom));
   app.get('/start-game', startGamePage(serveFrom));
-  app.get('/host', hostGame);
+  app.get('/host', hostGame(games));
 
   app.post('/login', loginHandler(sessions));
 
