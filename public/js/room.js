@@ -10,6 +10,7 @@ const getGameId = (xhr) => {
     alert('Failed to host the game.');
     return;
   }
+
   const { gameId } = JSON.parse(xhr.response);
   const gameIdElement = document.querySelector('#game-id');
   gameIdElement.innerText = `Your Game Id is ${gameId}`;
