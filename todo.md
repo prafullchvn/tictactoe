@@ -1,10 +1,7 @@
 # Todo
 
-- [x] Separate handlers in gameHandlers file
-- [ ] Extract styles in css folder
-- [ ] Separate the common function in script files.
-- [ ] Send cellId in json format.
 - [ ] Change status code in register move.
+- [ ] Extract styles in css folder
 
 - [ ] Create routes.
 - [ ] Create handlers
@@ -20,6 +17,9 @@
 
 # Done
 
+- [x] Send cellId in json format.
+- [x] Separate the common function in script files.
+- [x] Separate handlers in gameHandlers file
 - [x] Write script for startGame for sending GET /host request.
 - [x] Make index page with board (html file).
 - [x] Make start game page.

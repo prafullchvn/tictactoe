@@ -15,7 +15,7 @@ const createApp = (serveFrom, games = {}) => {
   const app = express();
 
   app.use(express.urlencoded({ extended: true }));
-  app.use(express.text());
+  app.use(express.json());
   app.use(morgan('tiny'));
   app.use(cookieParser());
   app.use(cookieSession({ name: 'sessionId', keys: ['tic-tac-toe'] }));

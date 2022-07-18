@@ -1,11 +1,4 @@
 (function () {
-  const sendReq = (method, url, callback, body = '') => {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', (event) => callback(xhr));
-    xhr.open(method, url);
-    xhr.send(body);
-  };
-
   const handleIsGameReadyRes = (xhr) => {
     if (xhr.status !== 200) {
       alert('Failed to get the game stats');
@@ -24,7 +17,13 @@
 
   const waitForOtherPlayer = () => {
     setInterval(() => {
-      sendReq('GET', '/is-game-ready', handleIsGameReadyRes);
+      const reqDetails = {
+        method: 'GET',
+        url: '/is-game-ready',
+        contentType: 'application/x-www-form-urlencoded',
+        body: ''
+      };
+      sendReq(reqDetails, handleIsGameReadyRes);
     }, 100);
   };
 
@@ -45,7 +44,13 @@
   const main = () => {
     const hostBtn = document.querySelector('#host');
     hostBtn.addEventListener('click', () => {
-      sendReq('GET', '/host', getGameId);
+      const reqDetails = {
+        method: 'GET',
+        url: '/host',
+        contentType: 'application/x-www-form-urlencoded',
+        body: ''
+      };
+      sendReq(reqDetails, getGameId);
     });
   };
 

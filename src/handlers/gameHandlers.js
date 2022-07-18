@@ -48,7 +48,7 @@ const getGameStats = (games) => (req, res) => {
 };
 
 const registerMove = (games) => (req, res) => {
-  const { session: { user, gameId }, body: cellId } = req;
+  const { session: { user, gameId }, body: { cellId } } = req;
 
   const game = games[gameId];
   if (!game.isCurrentPlayer(user)) {
