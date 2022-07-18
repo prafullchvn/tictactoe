@@ -1,27 +1,53 @@
-const sendReq = (method, url, callback, body = '') => {
-  const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', (event) => callback(xhr));
-  xhr.open(method, url);
-  xhr.send(body);
-};
+(function () {
+  const sendReq = (method, url, callback, body = '') => {
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', (event) => callback(xhr));
+    xhr.open(method, url);
+    xhr.send(body);
+  };
 
-const getGameId = (xhr) => {
-  if (xhr.status !== 200) {
-    alert('Failed to host the game.');
-    return;
-  }
+  const handleGameStatsRes = (xhr) => {
+    if (xhr.status !== 200) {
+      alert('Failed to get the game stats');
+      return;
+    }
 
-  const { gameId } = JSON.parse(xhr.response);
-  const gameIdElement = document.querySelector('#game-id');
-  gameIdElement.innerText = `Your Game Id is ${gameId}`;
-  document.querySelector('#buttons').remove();
-};
+    const loadingElement = document.querySelector('#loading');
+    loadingElement.innerText = `Waiting for other player to join...`;
 
-const main = () => {
-  const hostBtn = document.querySelector('#host');
-  hostBtn.addEventListener('click', () => {
-    sendReq('GET', '/host', getGameId);
-  });
-};
+    const gameStats = JSON.parse(xhr.response);
+    if (gameStats.players.length > 1) {
+      window.location.href = '/';
+      return;
+    }
+  };
 
-window.onload = main;
+  const waitForOtherPlayer = () => {
+    setInterval(() => {
+      sendReq('GET', '/get-stats', handleGameStatsRes);
+    }, 100);
+  };
+
+  const getGameId = (xhr) => {
+    if (xhr.status !== 200) {
+      alert('Failed to host the game.');
+      return;
+    }
+
+    const { gameId } = JSON.parse(xhr.response);
+    const gameIdElement = document.querySelector('#game-id');
+    gameIdElement.innerText = `Your Game Id is ${gameId}`;
+    document.querySelector('#buttons').remove();
+
+    waitForOtherPlayer();
+  };
+
+  const main = () => {
+    const hostBtn = document.querySelector('#host');
+    hostBtn.addEventListener('click', () => {
+      sendReq('GET', '/host', getGameId);
+    });
+  };
+
+  window.onload = main;
+})();

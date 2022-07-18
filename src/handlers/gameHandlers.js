@@ -60,4 +60,13 @@ const joinGame = (games) => (req, res) => {
   res.redirect('/');
 };
 
-module.exports = { indexPage, roomPage, hostGame, joinPage, joinGame };
+const getGameStats = (games) => (req, res) => {
+  const { session } = req;
+  const game = games[session.gameId];
+  res.json(game.getStats());
+};
+
+module.exports = {
+  indexPage, roomPage, hostGame, joinPage, joinGame,
+  getGameStats
+};
