@@ -2,7 +2,7 @@
 
 - [ ] Create routes.
 - [ ] Create handlers
- - [ ] register move
+ - [x] register move
  - [x] get stat
  - [x] host handler
  - [x] join handler
@@ -13,6 +13,9 @@
 - [ ] Consider to not serve index.html file
 - [ ] Consider implementing handler to check session and redirect to /.
 - [ ] Consider implementing handler to check session and redirect to /login.
+- [ ] Consider separating the common function in script files.
+- [ ] Consider changing status code in register move.
+- [ ] Consider sending cellId in json format.
 
 # Done
 

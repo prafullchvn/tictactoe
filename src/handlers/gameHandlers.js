@@ -72,13 +72,19 @@ const isGameReadyToStart = (games) => (req, res) => {
   res.json({ isSlotAvailable: game.isSlotAvailable() });
 };
 
-// const registerMove = (games) => (req, res) => {
-//   const { session } = req;
-//   const game = games[session.gameId];
+const registerMove = (games) => (req, res) => {
+  const { session: { user, gameId }, body: cellId } = req;
 
-// };
+  const game = games[gameId];
+  if (!game.isCurrentPlayer(user)) {
+    res.status(400).end();
+    return;
+  }
+  game.registerMove(+cellId);
+  res.end();
+};
 
 module.exports = {
   indexPage, roomPage, hostGame, joinPage, joinGame,
-  getGameStats, isGameReadyToStart
+  getGameStats, isGameReadyToStart, registerMove
 };

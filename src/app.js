@@ -4,11 +4,13 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 
 const { loginPage, loginHandler, logout } = require('./handlers/authHandlers.js');
-const { indexPage, roomPage, hostGame, joinPage, joinGame, getGameStats, isGameReadyToStart } = require('./handlers/gameHandlers.js');
+const { indexPage, roomPage, hostGame, joinPage, joinGame, getGameStats, isGameReadyToStart, registerMove } = require('./handlers/gameHandlers.js');
 
 const createApp = (serveFrom, games = {}) => {
   const app = express();
+
   app.use(express.urlencoded({ extended: true }));
+  app.use(express.text());
   app.use(morgan('tiny'));
   app.use(cookieParser());
   app.use(cookieSession({ name: 'sessionId', keys: ['tic-tac-toe'] }));
@@ -24,6 +26,7 @@ const createApp = (serveFrom, games = {}) => {
 
   app.post('/login', loginHandler);
   app.post('/join', joinGame(games));
+  app.post('/register-move', registerMove(games));
 
   app.use(express.static(serveFrom));
 

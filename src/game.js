@@ -38,15 +38,10 @@ class Game {
     const symbol = this.#symbols[this.#players.length % this.#maxPlayers];
     const player = { name, symbol, moves: [] };
     this.#players.push(player);
-    this.#updateCurrentPlayer();
+    this.#currentPlayer = this.#players[0];
   }
 
   #updateCurrentPlayer() {
-    if (!this.#currentPlayer) {
-      this.#currentPlayer = this.#players[0];
-      return;
-    }
-
     const index = this.#players.findIndex(
       (player) => player === this.#currentPlayer
     );
@@ -62,6 +57,10 @@ class Game {
   registerMove(cellId) {
     this.#currentPlayer.moves.push(cellId);
     this.#updateCurrentPlayer();
+  }
+
+  isCurrentPlayer(name) {
+    return this.#currentPlayer.name === name;
   }
 
   #setWinner() {
@@ -87,6 +86,7 @@ class Game {
   }
 
   getStats() {
+    this.#setWinner();
     const stats = { gameId: this.#gameId, players: this.#players };
     if (this.#isOver()) {
       stats.result = { winner: this.#winner, isDraw: this.#isDraw() };

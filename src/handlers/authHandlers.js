@@ -14,7 +14,6 @@ const loginHandler = (req, res) => {
     return;
   }
   session.user = body.name;
-  // res.cookie('sessionId', new Date().getTime()).redirect('/room');
   res.redirect('/room');
 };
 
