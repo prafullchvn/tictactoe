@@ -1,5 +1,11 @@
 # Todo
 
+- [x] Separate handlers in gameHandlers file
+- [ ] Extract styles in css folder
+- [ ] Separate the common function in script files.
+- [ ] Send cellId in json format.
+- [ ] Change status code in register move.
+
 - [ ] Create routes.
 - [ ] Create handlers
  - [x] register move
@@ -7,15 +13,10 @@
  - [x] host handler
  - [x] join handler
  - [x] login handler
-- [ ] Consider extracting styles in css folder
-- [ ] Consider separating handlers in gameHandlers file
 - [ ] Consider the player entity.
 - [ ] Consider to not serve index.html file
 - [ ] Consider implementing handler to check session and redirect to /.
 - [ ] Consider implementing handler to check session and redirect to /login.
-- [ ] Consider separating the common function in script files.
-- [ ] Consider changing status code in register move.
-- [ ] Consider sending cellId in json format.
 
 # Done
 

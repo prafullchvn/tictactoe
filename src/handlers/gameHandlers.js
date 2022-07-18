@@ -1,30 +1,5 @@
 const { Game } = require('../game.js');
 
-const indexPage = (serveFrom) => (req, res) => {
-  const { session } = req;
-
-  if (!session.isPopulated) {
-    return res.redirect('/login');
-  }
-  res.sendFile('index.html', { root: serveFrom });
-};
-
-const roomPage = (serveFrom) => (req, res) => {
-  const { session } = req;
-  if (!session.isPopulated) {
-    return res.redirect('/login');
-  }
-  res.sendFile('room.html', { root: serveFrom });
-};
-
-const joinPage = (serveFrom) => (req, res) => {
-  const { session } = req;
-  if (!session.isPopulated) {
-    return res.redirect('/login');
-  }
-  res.sendFile('join.html', { root: serveFrom });
-};
-
 const randomIntBetween = (start, end) => {
   const diff = end - start;
   const ranNum = Math.floor(Math.random() * diff);
@@ -50,6 +25,12 @@ const hostGame = (games) => (req, res) => {
   res.json({ gameId });
 };
 
+const isGameReadyToStart = (games) => (req, res) => {
+  const { session } = req;
+  const game = games[session.gameId];
+  res.json({ isSlotAvailable: game.isSlotAvailable() });
+};
+
 const joinGame = (games) => (req, res) => {
   const { session, body: { gameId } } = req;
   const game = games[gameId];
@@ -66,12 +47,6 @@ const getGameStats = (games) => (req, res) => {
   res.json(game.getStats());
 };
 
-const isGameReadyToStart = (games) => (req, res) => {
-  const { session } = req;
-  const game = games[session.gameId];
-  res.json({ isSlotAvailable: game.isSlotAvailable() });
-};
-
 const registerMove = (games) => (req, res) => {
   const { session: { user, gameId }, body: cellId } = req;
 
@@ -85,6 +60,5 @@ const registerMove = (games) => (req, res) => {
 };
 
 module.exports = {
-  indexPage, roomPage, hostGame, joinPage, joinGame,
-  getGameStats, isGameReadyToStart, registerMove
+  hostGame, joinGame, getGameStats, isGameReadyToStart, registerMove
 };
