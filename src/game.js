@@ -7,13 +7,7 @@ const isEqual = (arr1, arr2) => {
     return false;
   }
 
-  for (let index = 0; index < arr1.length; index++) {
-    if (arr1[index] !== arr2[index]) {
-      return false;
-    }
-  }
-
-  return true;
+  return arr1.every((element) => arr2.includes(element));
 };
 
 class Game {
@@ -71,6 +65,7 @@ class Game {
         return isEqual(combo, intersection(player.moves, combo));
       });
     });
+
     this.#winner = winner || null;
   }
 
@@ -87,7 +82,12 @@ class Game {
 
   getStats() {
     this.#setWinner();
-    const stats = { gameId: this.#gameId, players: this.#players };
+
+    const stats = {};
+    stats.gameId = this.#gameId;
+    stats.players = this.#players;
+    stats.currentPlayer = this.#currentPlayer;
+
     if (this.#isOver()) {
       stats.result = { winner: this.#winner, isDraw: this.#isDraw() };
     }

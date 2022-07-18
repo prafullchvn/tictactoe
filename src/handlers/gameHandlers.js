@@ -44,6 +44,10 @@ const joinGame = (games) => (req, res) => {
 const getGameStats = (games) => (req, res) => {
   const { session } = req;
   const game = games[session.gameId];
+  if (!game) {
+    res.status(500).end();
+    return;
+  }
   res.json(game.getStats());
 };
 
