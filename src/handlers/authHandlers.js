@@ -14,7 +14,13 @@ const loginHandler = (req, res) => {
     return;
   }
   session.user = body.name;
-  res.cookie('sessionId', new Date().getTime()).redirect('/room');
+  // res.cookie('sessionId', new Date().getTime()).redirect('/room');
+  res.redirect('/room');
 };
 
-module.exports = { loginPage, loginHandler };
+const logout = (req, res) => {
+  req.session = null;
+  res.clearCookie('sessionId').redirect('/login');
+}
+
+module.exports = { loginPage, loginHandler, logout };

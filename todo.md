@@ -5,7 +5,7 @@
  - [ ] register move
  - [ ] get stat
  - [x] host handler
- - [ ] join handler
+ - [x] join handler
  - [x] login handler
 - [ ] Consider extracting styles in css folder
 - [ ] Consider separating handlers in gameHandlers file
