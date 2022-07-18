@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 
 const { loginPage, loginHandler, logout } = require('./handlers/authHandlers.js');
-const { indexPage, roomPage, hostGame, joinPage, joinGame, getGameStats } = require('./handlers/gameHandlers.js');
+const { indexPage, roomPage, hostGame, joinPage, joinGame, getGameStats, isGameReadyToStart } = require('./handlers/gameHandlers.js');
 
 const createApp = (serveFrom, games = {}) => {
   const app = express();
@@ -20,6 +20,7 @@ const createApp = (serveFrom, games = {}) => {
   app.get('/join', joinPage(serveFrom));
   app.get('/logout', logout);
   app.get('/get-stats', getGameStats(games));
+  app.get('/is-game-ready', isGameReadyToStart(games));
 
   app.post('/login', loginHandler);
   app.post('/join', joinGame(games));

@@ -3,7 +3,7 @@
 - [ ] Create routes.
 - [ ] Create handlers
  - [ ] register move
- - [ ] get stat
+ - [x] get stat
  - [x] host handler
  - [x] join handler
  - [x] login handler

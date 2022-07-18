@@ -6,7 +6,7 @@
     xhr.send(body);
   };
 
-  const handleGameStatsRes = (xhr) => {
+  const handleIsGameReadyRes = (xhr) => {
     if (xhr.status !== 200) {
       alert('Failed to get the game stats');
       return;
@@ -15,8 +15,8 @@
     const loadingElement = document.querySelector('#loading');
     loadingElement.innerText = `Waiting for other player to join...`;
 
-    const gameStats = JSON.parse(xhr.response);
-    if (gameStats.players.length > 1) {
+    const { isSlotAvailable } = JSON.parse(xhr.response);
+    if (!isSlotAvailable) {
       window.location.href = '/';
       return;
     }
@@ -24,7 +24,7 @@
 
   const waitForOtherPlayer = () => {
     setInterval(() => {
-      sendReq('GET', '/get-stats', handleGameStatsRes);
+      sendReq('GET', '/is-game-ready', handleIsGameReadyRes);
     }, 100);
   };
 

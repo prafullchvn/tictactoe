@@ -66,7 +66,19 @@ const getGameStats = (games) => (req, res) => {
   res.json(game.getStats());
 };
 
+const isGameReadyToStart = (games) => (req, res) => {
+  const { session } = req;
+  const game = games[session.gameId];
+  res.json({ isSlotAvailable: game.isSlotAvailable() });
+};
+
+// const registerMove = (games) => (req, res) => {
+//   const { session } = req;
+//   const game = games[session.gameId];
+
+// };
+
 module.exports = {
   indexPage, roomPage, hostGame, joinPage, joinGame,
-  getGameStats
+  getGameStats, isGameReadyToStart
 };
