@@ -11,14 +11,15 @@ const { indexPage, roomPage, joinPage } = staticPagesLib;
 const { hostGame, joinGame, getGameStats } = gameHandlersLib;
 const { isGameReadyToStart, registerMove } = gameHandlersLib;
 
-const createApp = (serveFrom, games = {}) => {
+const createApp = (config, games = {}) => {
+  const { cookieName, keys, serveFrom } = config;
   const app = express();
 
+  app.use(morgan('tiny'));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
-  app.use(morgan('tiny'));
   app.use(cookieParser());
-  app.use(cookieSession({ name: 'sessionId', keys: ['tic-tac-toe'] }));
+  app.use(cookieSession({ name: cookieName, keys }));
 
   app.get('/login', loginPage(serveFrom));
   app.post('/login', loginHandler);
