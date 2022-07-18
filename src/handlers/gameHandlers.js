@@ -35,6 +35,13 @@ const joinGame = (games) => (req, res) => {
   const { session, body: { gameId } } = req;
   const game = games[gameId];
 
+  if (!game) {
+    return res.status(400).end();
+  }
+  if (!game.isSlotAvailable()) {
+    return res.status(422).end();
+  }
+
   session.gameId = gameId;
   game.addPlayer(session.user);
 
